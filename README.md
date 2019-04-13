@@ -1,4 +1,6 @@
-# tuneport
+# Tuneport
+
+<img src="https://raw.githubusercontent.com/ptumb001/tuneport/master/src/assets/logo.png" width=200>
 
 ## Project setup
 ```
