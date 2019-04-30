@@ -25,8 +25,8 @@ body > img {
 .tuneportlogo{
     position: fixed;
     left: 5px;
-    margin: 10px;
-    width: 40px;
+    margin: 50px 0px 0px 75px;
+    width: 150px;
 }
 
 .spotifylogo{
@@ -46,7 +46,7 @@ body > img {
 
 h1 + p {
     display: block;
-    margin: 0px 0px 0px 205px;
+    margin: 0px 0px 0px 280px;
     font-size: 35px;
     color: #d8d8d8;
 
@@ -56,7 +56,7 @@ h1 {
     display: block;
     height: 175px;
     color: #d8d8d8;
-    margin: 200px 0px 0px 175px;
+    margin: 200px 0px 0px 250px;
     font-size: 150px;
 }
 
