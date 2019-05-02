@@ -5,7 +5,7 @@
       <div class="right">
         <h1>Register for an account</h1>
         <p class="text">Tuneport uses recommendations from your Spotify account to function. A Spotify account is required to use Tuneport.</p>
-        <a v-bind:href="authLink">Log in to Spotify</a>
+        <a class="spotify-link" v-bind:href="authLink"><i class="fab fa-spotify"></i> Log in to Spotify</a>
       </div>
     </div>
   </div>
@@ -66,7 +66,10 @@ h1 {
   background-color:  #151616; 
   border-top-right-radius: 5%;
   border-bottom-right-radius: 5%;
+}
 
+p.text {
+  color: #e8f0ee;
 }
 
 .container {
@@ -76,6 +79,14 @@ h1 {
   margin: 12% auto;
   border-radius: 5%;
   grid-template-columns: 40% 60%;
+}
+
+a.spotify-link {
+  color:  #d8d8d8;
+  background-color: #1ed760;
+  border-radius: 5px;
+  padding: 2% 4%;
+  text-decoration: none;
 }
 
 </style>
