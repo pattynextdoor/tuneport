@@ -41,7 +41,7 @@ export default {
   margin: 0px;
   padding: 0px;
   border: 0px;
-  width: 104%;
+  width: 107%;
   bottom: -60px;
   left: -40px;
   z-index: -2;
