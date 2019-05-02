@@ -9,7 +9,8 @@
     </div>
     <h1>TunePort</h1>  
       <img class = "tuneportlogo" src = "../assets/logo_inverted.png" />
-      <img class = "backgroundimg" src = "../assets/audio.gif" />
+      <img class = "animated" src = "../assets/audio.gif" />
+      <img class = "backgroundimg" src = "../assets/audio.jpg" />
     <p>Take Control of Your Music</p>
   </div>
 </template>
@@ -29,24 +30,29 @@ export default {
 <style>
 
 * {
-  background-color: black;
+  background-color:#000000;
   padding: 0px;
   margin: 0px;
   border: 0px;
 }
 
-.backgroundimg {
-  block-size: 100%;
-  width: 100%;
-  margin: 275px 0px 0px 0px;
-  z-index: -1;
+.backgroundimg{
+  position: absolute;
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+  width: 104%;
+  bottom: -60px;
+  left: -40px;
+  z-index: -2;
 }
 
-.tuneportlogo {
+.animated {
   position: absolute;
-  left: 0px;
-  width: 150px;
-  margin: 250px 0px 0px 80px;
+  background-color: rgba(255, 255, 255, 0);
+  left: 850px;
+  top: 125px;
+  z-index: -1;
 }
 
 #nav {
@@ -74,19 +80,23 @@ export default {
 
 h1 {
   position: absolute;
+  background-color: rgba(255, 255, 255, 0);
   color: #d8d8d8;
   font-size: 125px;
   margin: 200px 0px 0px 250px;
 }
 
 p {
+  background-color: rgba(255, 255, 255, 0);
   position: absolute;
+  top: 380px;
   color: #d8d8d8d8;
   font-size: 35px;
-  margin: 330px 0px 0px 280px;
+  margin: 0px 0px 0px 280px;
 }
 
 .tuneportlogo {
+  background-color: rgba(255, 255, 255, 0);
   position: absolute;
   top: 280px;
   left: 115px;
@@ -94,14 +104,9 @@ p {
   width: 125px;
 }
 
-.backgroundimg {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-}
 
 .spotifylogo {
-  background-color: #272727;
+  background-color: rgba(255, 255, 255, 0);
 }
 
 </style>
