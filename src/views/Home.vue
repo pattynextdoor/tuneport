@@ -41,7 +41,7 @@ export default {
                     // + '?grant_type=' + 'authorization_code'
                     // + '?code=' + tokenCode
                     + '&scope=' + scopes
-                    + '&redirect_uri=' + encodeURIComponent('http://localhost:8080/main');
+                    + '&redirect_uri=' + encodeURIComponent('http://localhost:8080');
       console.log(postUrl);
       this.$data.authLink = postUrl;  
     }
