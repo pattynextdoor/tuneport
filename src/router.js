@@ -5,6 +5,7 @@ import Login from './views/Login.vue'
 import Register from './views/Register.vue'
 import Dashboard from './views/Dashboard.vue'
 import Recommendation from './views/Recommendation.vue'
+import Verify from './views/Verify.vue'
 
 Vue.use(Router)
 
@@ -36,6 +37,11 @@ export default new Router({
       path: '/recommendation',
       name: 'recommendation',
       component: Recommendation
+    },
+    {
+      path: '/verify',
+      name: 'verify',
+      component: Verify
     }
   ]
 })
