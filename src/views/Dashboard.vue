@@ -17,7 +17,9 @@ export default {
     }
   },
   methods: {
-    
+    getEmail: function() {
+
+    } 
   },
   mounted() {
   

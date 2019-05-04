@@ -1,9 +1,12 @@
 <template>
   <div class="register">
+    <Navbar />
     <div class="container">
       <div class="left"></div>
       <div class="right">
         <h1>Register for an account</h1>
+        <p class="text">Glad that you're joining us!</p>
+        <p class="text">Tuneport is a great way to be able to take control of how your Spotify recommendations are generated.</p>
         <p class="text">Tuneport uses recommendations from your Spotify account to function. A Spotify account is required to use Tuneport.</p>
         <a class="spotify-link" v-bind:href="authLink"><i class="fab fa-spotify"></i> Log in to Spotify</a>
       </div>
@@ -12,10 +15,12 @@
 </template>
 
 <script>
+import Navbar from '@/components/navbar.vue'
+
 export default {
   name: 'register',
   components: {
-
+    Navbar
   },
   data() {
     return {
@@ -36,7 +41,7 @@ export default {
                     // + '?grant_type=' + 'authorization_code'
                     // + '?code=' + tokenCode
                     + '&scope=' + scopes
-                    + '&redirect_uri=' + encodeURIComponent('http://localhost:8080');
+                    + '&redirect_uri=' + encodeURIComponent('http://localhost:8080/verify');
       console.log(postUrl);
       this.$data.authLink = postUrl;  
     },
@@ -70,6 +75,7 @@ h1 {
   background-color:  #151616; 
   border-top-right-radius: 5%;
   border-bottom-right-radius: 5%;
+  border-top: 2px solid #fa0300;
 }
 
 p.text {
@@ -86,6 +92,9 @@ p.text {
 }
 
 a.spotify-link {
+  display: inline-block;
+  margin-left: 50%;
+  margin-top: 10%;
   color:  #d8d8d8;
   background-color: #1ed760;
   border-radius: 5px;
