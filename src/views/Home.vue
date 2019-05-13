@@ -59,8 +59,8 @@ h1 {
 .animated {
   position: absolute;
   background-color: rgba(255, 255, 255, 0);
-  left: 850px;
-  top: 125px;
+  left: 650px;
+  top: 12%;
   z-index: -1;
 }
 
@@ -69,13 +69,15 @@ h1 {
   background-color: rgba(255, 255, 255, 0);
   color: #d8d8d8;
   font-size: 6em;
-  margin: 200px 0px 0px 250px;
+  position: absolute;
+  top: 22%;
+  left: 250px;
 }
 
 p.subtitle {
   position: absolute;
   top: 37%;
-  left: 14%;
+  left: 265px;
   font-size: 1.5em;
   color: #d8d8d8;
 }
@@ -83,10 +85,10 @@ p.subtitle {
 .tuneportlogo {
   background-color: rgba(255, 255, 255, 0);
   position: absolute;
-  top: 280px;
-  left: 115px;
+  top: 31%;
+  left: 145px;
   margin: 0px;
-  width: 125px;
+  width: 100px;
 }
 
 

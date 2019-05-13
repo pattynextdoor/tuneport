@@ -57,6 +57,10 @@ export default {
 </script>
 
 <style >
+body{
+  background-color: #000000;/* #2c3e50;*/
+}
+
 h1 {
   font-size: 2em;
 }
@@ -95,8 +99,8 @@ a.spotify-link {
   display: inline-block;
   margin-left: 50%;
   margin-top: 10%;
-  color:  #d8d8d8;
-  background-color: #1ed760;
+  color: #ffffff;
+  background-color: #1DB954;
   border-radius: 5px;
   padding: 2% 4%;
   text-decoration: none;
