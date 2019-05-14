@@ -9,6 +9,9 @@ Vue.config.productionTip = false
 // Vue Resource HTTP
 Vue.use(VueResource);
 Vue.http.headers.common['Access-Control-Allow-Origin'] = '*';
+Vue.http.headers.common['Access-Control-Allow-Credentials'] = 'true';
+Vue.http.headers.common['Access-Control-Allow-Methods'] = 'OPTIONS, GET, POST';
+Vue.http.headers.common['Access-Control-Allow-Headers'] = 'Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, If-Modified-Since, X-File-Name, Cache-Control';
 Vue.http.headers.common['Content-Type'] = 'application/json';
 Vue.http.headers.common['Accept'] = 'application/json';
 
