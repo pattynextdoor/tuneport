@@ -2,9 +2,8 @@
   <div class="home">
     <Navbar />
     <h1>TunePort</h1>  
-    <img class = "tuneportlogo" src = "../assets/logo_inverted.png" />
-    <img class = "animated" src = "../assets/audio.gif" />
-    <img class = "backgroundimg" src = "../assets/audio.jpg" />
+      <router-link id="link" tag="a" to="/register">Get Started</router-link>
+    <img class = "backgroundimg" src = "../assets/headphones.jpg" />
     <p class="subtitle">Take Control of Your Music</p>
   </div>
 </template>
@@ -33,6 +32,8 @@ export default {
 <style>
 /* Global styles */
 body {
+  margin: 0;
+  background-color: #EBF1F3;/* #2c3e50;*/
   color: #d8d8d8;
 }
 
@@ -47,50 +48,30 @@ h1 {
 
 .backgroundimg{
   position: absolute;
-  margin: 0px;
-  padding: 0px;
-  border: 0px;
-  width: 107%;
-  bottom: -60px;
-  left: -40px;
+  max-width: 140%;
+  top: 0px;
+  left: -15%;
+  height: auto;
   z-index: -2;
-}
-
-.animated {
-  position: absolute;
-  background-color: rgba(255, 255, 255, 0);
-  left: 650px;
-  top: 12%;
-  z-index: -1;
 }
 
 h1 {
   position: absolute;
   background-color: rgba(255, 255, 255, 0);
-  color: #d8d8d8;
-  font-size: 6em;
+  color: #000000;
+  font-size: 7em;
   position: absolute;
   top: 22%;
-  left: 250px;
+  left: 150px;
 }
 
 p.subtitle {
   position: absolute;
   top: 37%;
-  left: 265px;
-  font-size: 1.5em;
-  color: #d8d8d8;
+  left: 165px;
+  font-size: 3em;
+  color: #000000;
 }
-
-.tuneportlogo {
-  background-color: rgba(255, 255, 255, 0);
-  position: absolute;
-  top: 31%;
-  left: 145px;
-  margin: 0px;
-  width: 100px;
-}
-
 
 .spotifylogo {
   background-color: rgba(255, 255, 255, 0);
@@ -101,12 +82,17 @@ a {
   font-size: 1.2em;
 }
 
-a.login-button {
+#link {
   position: absolute;
-  top: 50%;
-  border: 1px solid white;
-  color: #d8d8d8; 
-  padding: 1%;
+  height: 40px;
+  width: 215px;
+  top: 450px;
+  left: 165px;
+  border-radius: 5px;
+  background-color: #1dbab4/*#7CDBD5*/;
+  color: #ffffff;
+  font-size: 2em;
+  text-align: center;
+  text-decoration: none;
 }
-
 </style>
