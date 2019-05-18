@@ -1,6 +1,9 @@
 <template>
   <div class="dashboard">
     <div class="topbar">
+      <router-link tag="a" class="rlink" id="home" to="/">
+        <img src="@/assets/logo_inverted.png"/>  
+      </router-link>
       <h1 id="dashtitle">Dashboard</h1>
     </div>
     <div class="subtitle">
@@ -41,28 +44,35 @@ export default {
 </script>
 
 <style scoped>
+.dashboard {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+}
 
 .topbar {
   position: fixed;
-  width: 98.3%;
+  width: 100%;
   height: 50px;
-  top: 1%;
-  border-radius: 5px;
+  top: 0%;
   background-color: #272727;
-  text-align: left;
-  text-indent: 10px;
+  text-align: center;
   z-index: 3;
 }
 
 .subtitle {
   margin: 75px 0px 0px 10px;
   font-size: 2em;
-  color: #d8d8d8;
+  color: #272727;
+}
+h1 {
+  margin-top:5px;
 }
 
-h1 {
+h1 > #dashtitle{
   position: absolute;
-  margin: 5px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
   padding: 0;
 }
 
@@ -80,5 +90,15 @@ h2 {
 
 .nextcard { /* temporary */ 
   margin: 0px 0px 0px 25px;
+}
+
+img {
+  width: 40px;
+  position: absolute;
+  top: 10px;
+  color: #d8d8d8;
+  text-decoration: none;
+  position:absolute;
+  left:20px;;
 }
 </style>

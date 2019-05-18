@@ -1,6 +1,6 @@
 <template>
   <div class="register">
-    <Navbar />
+    <Navbar class="navbar"/>
     <div class="container">
       <div class="left"></div>
       <div class="right">
@@ -8,7 +8,7 @@
         <p class="text">Glad that you're joining us!</p>
         <p class="text">Tuneport is a great way to be able to take control of how your Spotify recommendations are generated.</p>
         <p class="text">Tuneport uses recommendations from your Spotify account to function. A Spotify account is required to use Tuneport.</p>
-        <a class="spotify-link" v-bind:href="authLink"><i class="fab fa-spotify"></i> Log in to Spotify</a>
+        <a class="spotify-link" v-bind:href="authLink"><i class="fab fa-spotify"></i> Log in with Spotify</a>
       </div>
     </div>
   </div>
@@ -56,9 +56,9 @@ export default {
 }
 </script>
 
-<style >
+<style scoped>
 body{
-  background-color: #000000;/* #2c3e50;*/
+  background-color: #EBF1F3;/* #2c3e50;*/
 }
 
 h1 {
@@ -66,7 +66,7 @@ h1 {
 }
 
 .left {
-  background-image: url('https://images.pexels.com/photos/1690081/pexels-photo-1690081.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
+  background-image: url("../assets/marshmellow.jpg");
   background-position: center;
   background-size: cover;
   border-top-left-radius: 5%;
@@ -79,7 +79,7 @@ h1 {
   background-color:  #151616; 
   border-top-right-radius: 5%;
   border-bottom-right-radius: 5%;
-  border-top: 2px solid #fa0300;
+  border-top: 2px solid #1dbab4;
 }
 
 p.text {
@@ -97,7 +97,7 @@ p.text {
 
 a.spotify-link {
   display: inline-block;
-  margin-left: 50%;
+  margin-left: 40%;
   margin-top: 10%;
   color: #ffffff;
   background-color: #1DB954;

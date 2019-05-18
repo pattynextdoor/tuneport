@@ -8,7 +8,7 @@
 @import url('https://fonts.googleapis.com/css?family=Signika');
 
 #app {
-  font-family: 'Signika', Helvetica, Arial, sans-serif;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   letter-spacing: 1px;
