@@ -39,7 +39,7 @@ export default {
 /* Global styles */
 body {
   margin: 0;
-  background-color: #EBF1F3;/* #2c3e50;*/
+  background-color: #f3f2f2;
   color: rgb(17, 17, 17);
 }
 </style>
