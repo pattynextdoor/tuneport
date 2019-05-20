@@ -1,10 +1,16 @@
 <template>
   <div class="home">
     <Navbar />
-    <h1>TunePort</h1>  
-      <router-link id="link" tag="a" to="/register">Get Started</router-link>
-    <img class = "backgroundimg" src = "../assets/headphones.jpg" />
-    <p class="subtitle">Take Control of Your Music</p>
+    <div class="grid">
+      <div class="left">
+        <h1>TunePort</h1>  
+        <p class="subtitle">Take Control of Your Music</p>
+        <router-link id="link" tag="a" to="/register">Get Started</router-link>
+      </div>
+      <div class="right">
+        <img class = "backgroundimg" src = "https://i.imgur.com/8pu6BWD.png" />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -34,43 +40,38 @@ export default {
 body {
   margin: 0;
   background-color: #EBF1F3;/* #2c3e50;*/
-  color: #d8d8d8;
+  color: rgb(17, 17, 17);
 }
-
-h1 {
-  color: #d8d8d8;
-}
-
-
 </style>
 
 <style scoped>
 
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
 .backgroundimg{
-  position: absolute;
-  max-width: 140%;
-  top: 0px;
-  left: -15%;
-  height: auto;
+  display: block;
+  margin: 0 auto;
+  margin-top: 10%;
+  width: 75%;
   z-index: -2;
 }
 
 h1 {
-  position: absolute;
-  background-color: rgba(255, 255, 255, 0);
   color: #000000;
   font-size: 7em;
-  position: absolute;
-  top: 22%;
-  left: 150px;
+  text-align: center;
+  margin-top: 20%;
+  margin-bottom: 0;
 }
 
 p.subtitle {
-  position: absolute;
-  top: 37%;
-  left: 165px;
-  font-size: 3em;
-  color: #000000;
+  text-align: center;
+  font-size: 2em;
+  color: #4b4b4b;
+  margin-top: 0;
 }
 
 .spotifylogo {
@@ -82,16 +83,19 @@ a {
   font-size: 1.2em;
 }
 
+.left {
+  text-align: center;
+}
+
 #link {
-  position: absolute;
-  height: 40px;
-  width: 215px;
-  top: 450px;
-  left: 165px;
+  display: inline-block;
+  width: 15%;
+  margin: 0 auto;
+  padding: 1% 3%;
   border-radius: 5px;
   background-color: #1dbab4/*#7CDBD5*/;
   color: #ffffff;
-  font-size: 2em;
+  font-size: 1.5em;
   text-align: center;
   text-decoration: none;
 }
