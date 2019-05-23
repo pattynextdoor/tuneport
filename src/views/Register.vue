@@ -69,21 +69,18 @@ h1 {
   background-image: url("../assets/marshmellow.jpg");
   background-position: center;
   background-size: cover;
-  border-top-left-radius: 5%;
-  border-bottom-left-radius: 5%;
 }
 
 .right {
   padding-left: 10%;
   padding-right: 5%;
-  background-color:  #151616; 
-  border-top-right-radius: 5%;
-  border-bottom-right-radius: 5%;
+  background-color: #EBF1F3;
+  color: #272727;
   border-top: 2px solid #1dbab4;
 }
 
 p.text {
-  color: #e8f0ee;
+  color: #272727;
 }
 
 .container {
@@ -91,7 +88,6 @@ p.text {
   width: 700px;
   height: 500px;
   margin: 12% auto;
-  border-radius: 5%;
   grid-template-columns: 40% 60%;
 }
 

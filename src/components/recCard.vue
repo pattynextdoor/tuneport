@@ -1,8 +1,12 @@
 <template>
   <div class="recCard">
-    <router-link tag="a" class="rlink" id="rec" to="/"> <!-- add link to correct rec-->
-      <p id="title">Link Goes to Homepage for now </p>
-      <p>[Name for List]</p>
+    <router-link tag="a" class="rlink" id="rec" to="/listen"> <!-- add link to correct rec-->
+      <div class="top">
+      Link Goes to Homepage for now
+      </div>
+      <div class="bot">
+        [Name for List]
+      </div>
     </router-link> 
   </div>
 </template>
@@ -14,26 +18,26 @@ export default {
 </script>
 
 <style scoped>
-  .recCard {
-    margin: 0;
-    padding: 0;
-    border: 0;
-  }
-  #rec {
-    margin: 0px 0px 0px 0px;
-    padding: 0;
-    height: 250px;
-    width: 250px;
-    border-radius: 50px;
-    background-color: #272727;
-    text-decoration: none;
-    color: #d8d8d8;
-    text-align: center;
-    font-size: 1.9em;
-    position: absolute;
-    word-wrap: inherit;
-    z-index: 0;
-  }
+#rec {
+  display: grid;
+  border: 0;
+  grid-template-rows: 60% 40%;
+  margin: 0px 0px 0px 0px;
+  padding: 0;
+  height: 300px;
+  width: 250px;
+  background-color: #f8f8f8;
+  text-decoration: none;
+  color: #272727;
+  font-size: 1.9em;
+  word-wrap: inherit;
+  text-align: center;
+  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+}
+.bot {
+  background-color: #d8026e;
+  color: #e8e8e8;
+}
 
 #title {
   margin: 30px 0px 0px 0px;

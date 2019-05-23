@@ -1,6 +1,7 @@
 <template>
   <div class="verify">
     <h1>Verifying...</h1> 
+    <img src="@/assets/cubeloader.gif"/>
   </div>
 </template>
 
@@ -74,6 +75,17 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+h1 {
+  color: #272727;
+  font-size: 5em;
+}
+
+img {
+  position: absolute;
+  width: 100px;
+  top: 4%;
+  left: 425px;
+}
 
 </style>
