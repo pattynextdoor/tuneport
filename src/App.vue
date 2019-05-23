@@ -12,6 +12,6 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   letter-spacing: 1px;
-  color: #2c3e50;
+  color: #d8d8d8;
 }
 </style>

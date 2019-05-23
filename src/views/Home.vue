@@ -1,16 +1,9 @@
 <template>
   <div class="home">
     <Navbar />
-    <div class="grid">
-      <div class="left">
-        <h1>TunePort</h1>  
-        <p class="subtitle">Take Control of Your Music</p>
-        <router-link id="link" tag="a" to="/register">Get Started</router-link>
-      </div>
-      <div class="right">
-        <img class = "backgroundimg" src = "https://i.imgur.com/8pu6BWD.png" />
-      </div>
-    </div>
+    <h1>TunePort</h1>  
+    <p class="subtitle">Take Control of Your Music</p>
+    <router-link id="link" tag="a" to="/register">Get Started</router-link>
   </div>
 </template>
 
@@ -41,41 +34,29 @@ body {
   margin: 0;
   background-color: #f3f2f2;
   color: rgb(17, 17, 17);
+  background-image: url("../assets/headphones.jpg");
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 </style>
 
 <style scoped>
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-}
-
-.backgroundimg{
-  display: block;
-  margin: 0 auto;
-  margin-top: 10%;
-  width: 75%;
-  z-index: -2;
-}
-
 h1 {
   color: #000000;
-  font-size: 7em;
-  text-align: center;
-  margin-top: 20%;
+  font-size: 8em;
+  text-align: left;
+  margin-left: 7%;
+  margin-top: 7%;
   margin-bottom: 0;
 }
 
 p.subtitle {
-  text-align: center;
-  font-size: 2em;
+  text-align: left;
+  font-size: 3em;
   color: #4b4b4b;
   margin-top: 0;
-}
-
-.spotifylogo {
-  background-color: rgba(255, 255, 255, 0);
+  margin-left: 8%;
 }
 
 a {
@@ -83,17 +64,14 @@ a {
   font-size: 1.2em;
 }
 
-.left {
-  text-align: center;
-}
-
 #link {
   display: inline-block;
-  width: 15%;
-  margin: 0 auto;
+  width: 135px;
+  margin-top: 0;
+  margin-left: 8%;
   padding: 1% 3%;
   border-radius: 5px;
-  background-color: #1dbab4/*#7CDBD5*/;
+  background-color: #d8026e;
   color: #ffffff;
   font-size: 1.5em;
   text-align: center;

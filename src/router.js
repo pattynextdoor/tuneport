@@ -6,6 +6,8 @@ import Register from './views/Register.vue'
 import Dashboard from './views/Dashboard.vue'
 import Recommendation from './views/Recommendation.vue'
 import Verify from './views/Verify.vue'
+import NewRec from './views/NewRec.vue'
+import Listen from './views/Listen.vue'
 
 Vue.use(Router)
 
@@ -42,6 +44,16 @@ export default new Router({
       path: '/verify',
       name: 'verify',
       component: Verify
+    },
+    {
+      path: '/newrec',
+      name: 'newrec',
+      component: NewRec
+    },
+    {
+      path: '/listen',
+      name: 'listen',
+      component: Listen
     }
   ]
 })
