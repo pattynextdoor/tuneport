@@ -2,7 +2,7 @@
   <div class="recCard">
     <router-link tag="a" class="rlink" id="rec" to="/listen"> <!-- add link to correct rec-->
       <div class="top">
-      Link Goes to Homepage for now
+      Link Goes to Listen Page
       </div>
       <div class="bot">
         [Name for List]

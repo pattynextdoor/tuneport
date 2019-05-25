@@ -22,6 +22,7 @@ export default {
     margin: 0;
     padding: 0;
     height: 50px;
+    width: 100%;
     background-color: #272727;
     text-align: center;
   }
