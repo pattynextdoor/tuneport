@@ -34,14 +34,18 @@ body {
   margin: 0;
   background-color: #f3f2f2;
   color: rgb(17, 17, 17);
-  background-image: url("../assets/headphones.jpg");
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  background-size: cover;
 }
 </style>
 
 <style scoped>
+.home {
+  background-image: url("../assets/headphones.jpg");
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+}
+
 h1 {
   color: #000000;
   font-size: 8em;

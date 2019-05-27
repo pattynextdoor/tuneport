@@ -2,7 +2,7 @@
   <div class="dashboard">
     <TuneNav/>
     <div class="subtitle">
-      <h2> Welcome, [User]<span id="user"></span></h2>
+      <h2> Welcome, {{ name }}<span id="user"></span></h2>
     </div>
     <div class="grid">
       <recCard v-for="card in cards" :key="card.id"> </recCard>
@@ -16,6 +16,7 @@
 import newRecCard from '@/components/newRecCard.vue'
 import recCard from '@/components/recCard.vue'
 import TuneNav from '@/components/tunenav.vue'
+import firebase from 'firebase'
 
 export default {
   name: 'dashboard',
@@ -26,6 +27,8 @@ export default {
   },
   data() {
     return {
+      token: "",
+      name: "",
       cards: [
         {
           id: 1
@@ -34,11 +37,33 @@ export default {
     }
   },
   methods: {
-    getEmail: function() {
+    getName: function() {
+      let userId = firebase.auth().currentUser.uid;
+      let dbRef = firebase.database().ref().child(userId);
 
-    } 
+      let vm = this;
+
+      let tokenRef = dbRef.once('value')
+                      .then(function(snapshot) {
+                        vm.$data.token = snapshot.val().token;
+                        let token = vm.$data.token;
+                        let authString = 'Bearer ' + token;
+                        let reqUrl = "https://api.spotify.com/v1/me"
+
+                        vm.$http.get(reqUrl, 
+                        {
+                          headers: {
+                            'Authorization': authString
+                          }
+                        })
+                        .then(function(response) {
+                          vm.$data.name = response.body.display_name.split(" ")[0];
+                        })
+                      });
+    }
   },
   mounted() {
+    this.getName();
   }
 }
 </script>
