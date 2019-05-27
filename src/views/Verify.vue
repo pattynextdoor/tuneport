@@ -46,7 +46,7 @@ export default {
     },
     verifyUser: function() {
       console.log('Verifying user...');
-
+      
       let email = this.$data.email;
       let id = this.$data.id;
       let token = this.$data.token;
@@ -63,7 +63,8 @@ export default {
             firebase.auth().signInWithEmailAndPassword(email, id)
               .then(function(user) {
                 console.log('Signing in to existing account...');
-                var dbRefObj = firebase.database().ref().child(id);
+                var userId = firebase.auth().currentUser.uid;
+                var dbRefObj = firebase.database().ref().child(userId);
                 dbRefObj.set(
                   {
                     token: token 
