@@ -49,6 +49,7 @@ export default {
 
       let email = this.$data.email;
       let id = this.$data.id;
+      let token = this.$data.token;
 
       firebase.auth().createUserWithEmailAndPassword(email, id)
         .then(function(user) {
@@ -62,6 +63,12 @@ export default {
             firebase.auth().signInWithEmailAndPassword(email, id)
               .then(function(user) {
                 console.log('Signing in to existing account...');
+                var dbRefObj = firebase.database().ref().child(id);
+                dbRefObj.set(
+                  {
+                    token: token 
+                  }
+                )
                 router.push('dashboard');
               })
           }
