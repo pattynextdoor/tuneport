@@ -58,7 +58,7 @@ export default {
 
 <style scoped>
 body{
-  background-color: #EBF1F3;/* #2c3e50;*/
+  background-color: #f5f8fa;
 }
 
 h1 {
@@ -89,6 +89,7 @@ p.text {
   height: 500px;
   margin: 12% auto;
   grid-template-columns: 40% 60%;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
 a.spotify-link {

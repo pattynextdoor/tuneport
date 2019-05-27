@@ -66,7 +66,7 @@ export default {
                 var userId = firebase.auth().currentUser.uid;
                 var dbRefObj = firebase.database().ref().child(userId);
                 dbRefObj.set(
-                  {
+                    {
                     token: token 
                   }
                 )

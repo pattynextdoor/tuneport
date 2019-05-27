@@ -24,7 +24,6 @@
       <h2>Choose a playlist to analyze the qualities of</h2>
     </div>
   </div>
-
 </template>
 
 
@@ -107,6 +106,7 @@ export default {
 <style scoped>
 .newrec {
   padding-bottom: 5%;
+  background-color: white;
 }
 
 h1 {
