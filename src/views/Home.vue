@@ -17,6 +17,9 @@ export default {
     Navbar
   },
   data() {
+    return {
+
+    }
   },
   methods: {
   
