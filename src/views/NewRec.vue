@@ -93,8 +93,6 @@ export default {
       .then(function(response) {
         console.log(response)
       })
-
-      
     }
   },
   mounted() {
