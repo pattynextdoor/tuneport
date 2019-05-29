@@ -41,36 +41,50 @@ export default {
     return {
       state: "start",
       query: "",
-      token: ""
-    }
+      token: "",
+      playlists: ""
+    };
   },
   methods: {
     retrieveToken: function() {
       let userId = firebase.auth().currentUser.uid;
-      let saving = 2;
-      let dbRef = firebase.database().ref().child(userId);
-
-      let token = ""
-
+      let dbRef = firebase
+        .database()
+        .ref()
+        .child(userId);
+      let token = "";
       let vm = this;
-
-      let tokenRef = dbRef.once('value')
-                    .then(function(snapshot) {
-                      token = snapshot.val().token;
-                      vm.$data.token = token;
-                    }).then(function(){
-                      let token = vm.$data.token;
-                      let reqUrl = "https://api.spotify.com/v1/me/playlists?limit=10&offset=5";
-                      vm.$http.get(reqUrl, 
-                      {
-                        headers: {
-                          'Authorization': 'Bearer ' + token
-                        }
-                      })
-                      .then(function(response) {
-                        console.log(JSON.stringify(response))
-                      })
-                      });
+      let playlists;
+      let playlistName;
+      let playlistList = {};
+      let playlistId;
+      let tokenRef = dbRef
+        .once("value")
+        .then(function(snapshot) {
+          token = snapshot.val().token;
+          vm.$data.token = token;
+        })
+        .then(function() {
+          let token = vm.$data.token;
+          let reqUrl =
+            "https://api.spotify.com/v1/me/playlists?limit=10&offset=5";
+          vm.$http
+            .get(reqUrl, {
+              headers: {
+                Authorization: "Bearer " + token
+              }
+            })
+            .then(function(response) {
+              // vm.$data.playlists = response;
+              var i;
+              for (i = 0; i < 5; i++) {
+                playlistName = response.body.items[i]["name"];
+                playlistId = response.body.items[i]["id"];
+                playlistList[playlistName] = playlistId;
+              }
+              console.log(playlistList);
+            });
+        });
     },
     songButton: function() {
       this.$data.state = "choosing song";
@@ -78,27 +92,15 @@ export default {
     playlistButton: function() {
       this.$data.state = "choosing playlist";
     },
-    getPlayList: function(){
-      let token = this.$data.token;
-      console.log(token)
-      let authString = 'Bearer ' + token; 
-      console.log(authString)
-      let reqUrl = "https://api.spotify.com/v1/me/playlists?limit=10&offset=5";
-      this.$http.get(reqUrl, 
-      {
-        headers: {
-          'Authorization': authString
-        }
-      })
-      .then(function(response) {
-        console.log(response)
-      })
+    getTracksFromPlaylist: function() {
+
     }
   },
   mounted() {
     this.retrieveToken();
-  } 
-}
+    // this.getPlayList();
+  }
+};
 </script>
 
 <style scoped>
