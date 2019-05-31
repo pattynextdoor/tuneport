@@ -8,6 +8,7 @@
       <recCard v-for="card in cards" :key="card.id"> </recCard>
       <newRecCard />
     </div>
+    <div class="background"/>
   </div>
 </template>
 
@@ -69,6 +70,14 @@ export default {
 </script>
 
 <style scoped>
+.dashboard {
+  width: 100%;
+  height: 100%;
+  background-image: url("../assets/headphones1.jpg");
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 .grid {
   margin-left: 20px;
   margin-right: 20px;
@@ -103,13 +112,5 @@ h1 > #dashtitle{
 h2 {
   margin: 0px 0px 50px 0px;
 }
-img {
-  width: 40px;
-  position: absolute;
-  top: 10px;
-  color: #d8d8d8;
-  text-decoration: none;
-  position:absolute;
-  left:20px;;
-}
+
 </style>

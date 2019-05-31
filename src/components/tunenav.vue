@@ -31,10 +31,10 @@ export default {
     text-align: left;
     left: 50px;
     font-size: 2em;
-    color: #d8d8d8;
+    color: #ffffff;
   }
   #home {
-    color: #d8d8d8;
+    color: #ffffff;
     text-decoration: none;
     position:absolute;
     left:20px;;

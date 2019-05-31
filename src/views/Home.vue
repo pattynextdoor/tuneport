@@ -35,7 +35,6 @@ export default {
 /* Global styles */
 body {
   margin: 0;
-  background-color: #f3f2f2;
   color: rgb(17, 17, 17);
 }
 </style>
@@ -67,7 +66,7 @@ p.subtitle {
 }
 
 a {
-  color: #d8d8d8;
+  color: #ffffff;
   font-size: 1.2em;
 }
 

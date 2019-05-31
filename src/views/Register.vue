@@ -1,6 +1,6 @@
 <template>
   <div class="register">
-    <Navbar class="navbar"/>
+    <TuneNav class="navbar"/>
     <div class="container">
       <div class="left"></div>
       <div class="right">
@@ -15,12 +15,12 @@
 </template>
 
 <script>
-import Navbar from '@/components/navbar.vue'
+import TuneNav from '@/components/tunenav.vue'
 
 export default {
   name: 'register',
   components: {
-    Navbar
+    TuneNav
   },
   data() {
     return {
@@ -57,6 +57,13 @@ export default {
 </script>
 
 <style scoped>
+.register {
+  background-image: url("../assets/headphones1.jpg");
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+}
 body{
   background-color: #f5f8fa;
 }
