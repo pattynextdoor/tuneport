@@ -19,7 +19,7 @@
         </div>
         <div class="right-mid">
           <ul id="liked-songs">
-            <li v-for="song in songs">
+            <li v-for="song in songs" v-bind:key="song">
               {{song.title}}
             </li>
           </ul>

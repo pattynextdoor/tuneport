@@ -57,7 +57,7 @@ export default {
   }
   
   .spotify-link{
-    color: #d8d8d8;
+    color: #ffffff;
     text-decoration: none;
     position:absolute;
     right: 20px;
@@ -67,7 +67,7 @@ export default {
     display: block;
   }
   #home {
-    color: #d8d8d8;
+    color: #ffffff;
     text-decoration: none;
     position:absolute;
     left:20px;;

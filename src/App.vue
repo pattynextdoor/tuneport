@@ -18,6 +18,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   letter-spacing: 1px;
   color: #d8d8d8;
+  background-color: rgba(0,0,0,0);
   height: 100%;
 }
 </style>
