@@ -6,27 +6,45 @@
         <div class="album">
           [Put Album Image Here]
         </div>
-        <button class="prev"/>
-        <button class="play"/>
-        <button class="next"/>
-        <button class="heart"/>
+        <div class="playback">
+          <button class="prev"/>
+          <button class="play"/>
+          <button class="next"/>
+          <button class="heart"/>
+        </div>
       </div>
-      <div class="right">
-        <div class="right-top">
+      <div class="mid">
+        <div class="mid-top">
           <div class="playlist">
-            <p>[Playlist Name]</p>
+            <p>Queue</p>
           </div>
         </div>
-        <div class="right-mid">
+        <div class="mid-mid">
           <ul id="liked-songs">
             <li v-for="song in songs" v-bind:key="song">
               {{song.title}}
             </li>
           </ul>
         </div>
-        <div class="right-bot">
+        <div class="mid-bot">
+        </div>
+      </div>
+      <div class="right">
+        <div class="mid-top">
+          <div class="playlist">
+            <p>[Playlist Name]</p>
+          </div>
+        </div>
+        <div class="mid-mid">
+          <ul id="liked-songs">
+            <li v-for="liked in likes" v-bind:key="liked">
+              {{song.title}}
+            </li>
+          </ul>
+        </div>
+        <div class="mid-bot">
           <p> Export Playlist? </p>
-          <button> Yes, please! </button>
+          <button class="export"> Yes, please! </button>
         </div>
       </div>
     </div>
@@ -74,6 +92,8 @@ export default {
         {title: 'song3'},
         {title: 'song4'},
         {title: 'song5'}
+      ],
+      liked: [
       ]
     }
   }
@@ -87,63 +107,104 @@ export default {
 .album {
   height: 400px;
   width: 400px;
-  margin: 150px auto;
-  position: relative;
+  display: block;
+  margin: 150px auto 150px;
   background-color: #ffffff;
   text-align: center;
   color: #000000;
 }
 .container {
   display: grid;
-  grid-template-columns: 75% 25%;
-  height: 100%;
+  grid-template-columns: 60% 20% 20%;
+  height: fill;
+}
+.mid {
+  display: grid;
+  grid-template-rows: 6vh 80vh 9vh;
+  color: #ffffff;
 }
 .right {
   display: grid;
   grid-template-rows: 6vh 80vh 9vh;
-  color: #e8e8e8;
+  color: #ffffff;
 }
-.right-top {
+.mid-top {
   font-size: 2em;
   text-align: center;
-  background-color: #d8026e;
+  background-color: #bd005e;
   width: fill;
 }
-.right-mid {
+.right > .mid-top {
+  background-color: #d8026e;
+}
+.mid-mid {
   margin: 0;
   height: 80vh;
-  background-color: #e8e8e8;
   overflow-y: scroll;
+  background-color: #ffffff;
 }
-.right-bot {
+.mid-bot {
   margin: 0;
   width: fill;
-  background-color: #d8026e;
+  background-color: #bd005e;
+}
+.right > .mid-bot {
+  background-color: #d8026e;;
 }
 ul {
   margin-top: 0;
   list-style: none;
   color: #272727;
   line-height: 40px;
-  background-color: #E7ECF0;
+  background-color: #ffffff;
 }
 p {
   margin-top: 10px;
 }
-/* button {
-  background-color: rgba(0,0,0,0);
-} */
+.playback {
+  text-align: center;
+}
 .prev {
+  display: inline-block;
+  margin: 0 30px 30px auto;
+  height: 50px;
+  width: 50px;
+  background-color: transparent;
+  border: 0px;
   background-image: url("../assets/icons8-rewind-50.png");
+  cursor: pointer;
 }
 .next {
+  display: inline-block;
+  margin: 0 30px 30px auto;
+  height: 50px;
+  width: 50px;
+  background-color: transparent;
+  border: 0px;
   background-image: url("../assets/icons8-fast-forward-50.png");
+  cursor: pointer;
 }
 .play {
+  display: inline-block;
+  margin: 0 30px 30px auto;
+  height: 50px;
+  width: 50px;
+  background-color: transparent;
+  border: 0px;
   background-image: url("../assets/icons8-circled-play-50.png");
+  cursor: pointer;
 }
 .heart {
+  position: absolute;
+  margin-top: 15px;
+  margin-left: 50px;
+  height: 25px;
+  width: 25px;
+  background-color: transparent;
+  border: 0px;
   background-image: url("../assets/like.png");
+  background-repeat: no-repeat;
+  cursor: pointer;
 }
 
 </style>

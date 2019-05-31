@@ -36,6 +36,7 @@ export default {
 body {
   margin: 0;
   color: rgb(17, 17, 17);
+  background-color: #E7ECF0;
 }
 </style>
 
