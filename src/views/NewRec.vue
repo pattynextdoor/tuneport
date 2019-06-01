@@ -28,9 +28,9 @@
       </div>
       <div v-if="state == 'choosing playlist'" class="choosePlaylist">
         <h2>Choose a playlist to analyze the qualities of</h2>
-        <select id = "playlist">
+        <select id = "playlist" v-model="selectedPlaylist">
           <option v-for="playlist in playlists" v-bind:key="playlist">
-            {{playlist.title}}
+            {{playlist.name}}
           </option>
         </select>
       </div>
@@ -85,6 +85,7 @@ export default {
       playlists: [
         {title: 'list 1'},
       ],
+      selectedPlaylist: "",
       songs:  [
         {title: 'song 1'},
       ]
@@ -101,7 +102,7 @@ export default {
       let vm = this;
       let playlists;
       let playlistName;
-      let playlistList = {};
+      let playlistList = [];
       let playlistId;
       let tokenRef = dbRef
         .once("value")
@@ -125,9 +126,14 @@ export default {
               for (i = 0; i < 5; i++) {
                 playlistName = response.body.items[i]["name"];
                 playlistId = response.body.items[i]["id"];
-                playlistList[playlistName] = playlistId;
+                let currPlaylist = {
+                  name: playlistName,
+                  id: playlistId
+                }
+                playlistList.push(currPlaylist);
               }
               console.log(playlistList);
+              vm.$data.playlists = playlistList;
             });
         });
     },
