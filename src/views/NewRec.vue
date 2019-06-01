@@ -29,12 +29,12 @@
       <div v-if="state == 'choosing playlist'" class="choosePlaylist">
         <h2>Choose a playlist to analyze the qualities of</h2>
         <select id = "playlist" v-model="selectedPlaylist">
-          <option v-for="playlist in playlists" v-bind:key="playlist">
+          <option v-for="playlist in playlists" v-bind:key="playlist.id">
             {{playlist.name}}
           </option>
         </select>
       </div>
-      <div v-on:click="configButton" class="next">Next</div>
+      <div v-on:click="getTracksFromPlaylist" class="next">Next</div>
     </div>
     <div v-if="state == 'configuration'" class="configRec">
       <h2>Change the attributes up to your liking!</h2>
@@ -144,10 +144,36 @@ export default {
       this.$data.state = "choosing playlist";
     },
     getTracksFromPlaylist: function() {
-
-    },
-    configButton: function() {
       this.$data.state = "configuration";
+      // First, we need the selected playlist's ID
+      let playlists = this.$data.playlists;
+      let selectedPlaylist = this.$data.selectedPlaylist;
+      let token = this.$data.token;
+      let playlistId = ""
+      let vm = this;
+      let tracks= [];
+
+      for (let i = 0; i < playlists.length; i++) {
+        if (playlists[i].name = selectedPlaylist) {
+          playlistId = playlists[i].id;
+          break;          
+        }
+      }
+
+      // Make a request to the endpoint to retrieve tracks
+      let reqUrl = "https://api.spotify.com/v1/playlists/"
+                    + playlistId + "/tracks";
+
+      this.$http.get(reqUrl, {
+        headers: {
+          Authorization: "Bearer " + token
+        }
+      })
+      .then(function(response) {
+        tracks = response.body.items
+        console.log(tracks);
+      })
+
     }
   },
   mounted() {
