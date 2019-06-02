@@ -21,8 +21,8 @@
         </div>
         <div class="mid-mid">
           <ul id="liked-songs">
-            <li v-for="song in songs" v-bind:key="song">
-              {{song.title}}
+            <li v-for="track in tracklist" v-bind:key="track.permalink" class="tracklist">
+              {{track.artist.name}} - {{track.title}}
             </li>
           </ul>
         </div>
@@ -64,15 +64,9 @@ export default {
     return {
       token: "",
       userRecObj: {},
-      songs: [
-        {title: 'song1'},
-        {title: 'song2'},
-        {title: 'song3'},
-        {title: 'song4'},
-        {title: 'song5'}
-      ],
-      liked: [
-      ]
+      recommendedTracksObj: {},
+      tracklist: [],
+      liked: []
     }
   },
   methods: {
@@ -127,8 +121,28 @@ export default {
                       .then(function(response) {
                         let recommendedTracks = response.body.tracks;
                         console.log(recommendedTracks);
+                        vm.$data.recommendedTracksObj = recommendedTracks;
+                        vm.getTrackInfo();
                       })
                     })
+    },
+    getTrackInfo: function() {
+      let vm = this;
+      let token = this.$data.token;
+      let tracklist = [];
+      let recTracksObj = this.$data.recommendedTracksObj;
+
+      for (let i = 0; i < recTracksObj.length; i++) {
+        let currTrack = {
+          title: recTracksObj[i].name,
+          artist: recTracksObj[i].artists[0],
+          albumArt: recTracksObj[i].album.images[0],
+          permalink: recTracksObj[i].external_urls.spotify
+        }
+        tracklist.push(currTrack);
+      }
+
+      this.$data.tracklist = tracklist;
     }
   },
   mounted() {
@@ -231,6 +245,11 @@ p {
   background-image: url("../assets/icons8-circled-play-50.png");
   cursor: pointer;
 }
+
+.tracklist:nth-child(even){
+  background-color: #d3d3d3;
+}
+
 .heart {
   position: absolute;
   margin-top: 15px;
