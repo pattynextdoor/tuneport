@@ -177,9 +177,10 @@ export default {
   display: block;
   margin: 150px auto 150px;
   margin-bottom: 10%;
-  background-color: #ffffff;
   text-align: center;
   color: #000000;
+  border-radius: 5%;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 .container {
   display: grid;
@@ -274,6 +275,7 @@ p {
 
 .albumArt {
   width: 100%;
+  border-radius: 5%;
 }
 
 .trackInfo {
