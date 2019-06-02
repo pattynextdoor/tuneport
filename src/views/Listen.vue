@@ -50,7 +50,7 @@
         </div>
         <div class="mid-bot">
           <p> Export Playlist? </p>
-          <button class="export"> Yes, please! </button>
+          <button v-on:click="exportLiked" class="export"> Yes, please! </button>
         </div>
       </div>
     </div>
@@ -144,7 +144,8 @@ export default {
           title: recTracksObj[i].name,
           artist: recTracksObj[i].artists[0],
           albumArt: recTracksObj[i].album.images[0],
-          permalink: recTracksObj[i].external_urls.spotify
+          permalink: recTracksObj[i].external_urls.spotify,
+          uri: recTracksObj[i].uri
         }
         tracklist.push(currTrack);
       }
@@ -163,6 +164,68 @@ export default {
     },
     likeTrack: function() {
       this.$data.liked.push(this.$data.tracklist[this.$data.currTrackPos]);      
+    },
+    exportLiked: function() {
+      let vm = this;
+      let token = this.$data.token;
+
+      // First, retrieve current user's ID
+
+      let reqUrl = "https://api.spotify.com/v1/me";
+
+      this.$http.get(reqUrl,
+      {
+        headers: {
+          'Authorization': 'Bearer ' + token
+        }
+      })
+      .then(function(response) {
+        // Now we can create the playlist
+        let userId = response.body.id;
+        let reqUrl = 'https://api.spotify.com/v1/users/' + userId + '/playlists';
+
+        vm.$http.post(reqUrl,
+        {
+          'name': 'Liked from Tuneport',
+          'description': 'Songs liked from Tuneport',
+          'public': true
+        },
+        {
+          headers: {
+            'Authorization': 'Bearer ' + token
+          }
+        })
+        .then(function(response) {
+          console.log(response);
+          let playlistId = response.body.id;
+          let uriStr = vm.likedToURIs();
+          let reqUrl = 'https://api.spotify.com/v1/playlists/' + playlistId + '/tracks'
+                        + '?uris=' + uriStr;
+
+          vm.$http.post(reqUrl,{},
+          {
+            headers: {
+              'Authorization': 'Bearer ' + token
+            }
+          })
+          .then(function(response) {
+            console.log(response)
+          })
+        })
+      })
+    },
+    likedToURIs: function() {
+      let likedTracks = this.$data.liked;
+      let uriStr = "";
+
+      for (let i = 0; i < likedTracks.length; i++) {
+        uriStr += likedTracks[i].uri;
+        if (i != likedTracks.length - 1) {
+          uriStr += ","
+        }
+      }
+
+      return encodeURIComponent(uriStr);
     }
   },
   mounted() {
