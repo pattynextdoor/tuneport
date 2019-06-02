@@ -53,6 +53,7 @@
 
 <script>
 import TuneNav from '@/components/tunenav.vue'
+import firebase from 'firebase'
 
 export default {
   name: 'listen',
@@ -61,32 +62,9 @@ export default {
   },
   data() {
     return {
+      token: "",
+      userRecObj: {},
       songs: [
-        {title: 'song1'},
-        {title: 'song2'},
-        {title: 'song3'},
-        {title: 'song4'},
-        {title: 'song5'},
-        {title: 'song1'},
-        {title: 'song2'},
-        {title: 'song3'},
-        {title: 'song4'},
-        {title: 'song5'},
-        {title: 'song1'},
-        {title: 'song2'},
-        {title: 'song3'},
-        {title: 'song4'},
-        {title: 'song5'},
-        {title: 'song1'},
-        {title: 'song2'},
-        {title: 'song3'},
-        {title: 'song4'},
-        {title: 'song5'},
-        {title: 'song1'},
-        {title: 'song2'},
-        {title: 'song3'},
-        {title: 'song4'},
-        {title: 'song5'},
         {title: 'song1'},
         {title: 'song2'},
         {title: 'song3'},
@@ -96,6 +74,65 @@ export default {
       liked: [
       ]
     }
+  },
+  methods: {
+    retrieveToken: function() {
+      let userId = firebase.auth().currentUser.uid;
+      let dbRef = firebase
+        .database()
+        .ref()
+        .child(userId);
+      let token = "";
+      let vm = this;
+      let tokenRef = dbRef
+        .once("value")
+        .then(function(snapshot) {
+          token = snapshot.val().token;
+          vm.$data.token = token;
+        })
+        .then(function() {
+          vm.retrieveRecommendations();
+        })
+    },
+    retrieveRecommendations: function() {
+      let vm = this;
+      let token = this.$data.token;
+
+      // Retrieve user recommendation data from Firebase
+      let userId = firebase.auth().currentUser.uid;
+      let dbRef = firebase.database().ref().child(userId);
+
+      let recRef = dbRef.once('value')
+                    .then(function(snapshot) {
+                      let recObject = snapshot.val().recommendations[0];
+                      vm.$data.userRecObj = recObject;
+                      console.log(vm.$data.userRecObj);
+                    })
+                    .then(function() {
+                      // Make the call to the recommendations endpoint
+                      let reqUrl = "https://api.spotify.com/v1/recommendations"
+                      vm.$http.get(reqUrl, {
+                        params: {
+                          seed_tracks: vm.$data.userRecObj.trackSeedStr,
+                          target_energy: vm.$data.userRecObj.energy,
+                          target_loudness: vm.$data.userRecObj.loudness,
+                          target_danceability: vm.$data.userRecObj.target_danceability,
+                          target_valence: vm.$data.userRecObj.target_valence,
+                          target_tempo: vm.$data.userRecObj.target_tempo
+                        },
+                        headers: {
+                          Authorization: "Bearer " + vm.$data.token
+                        }
+                      })
+                      .then(function(response) {
+                        let recommendedTracks = response.body.tracks;
+                        console.log(recommendedTracks);
+                      })
+                    })
+    }
+  },
+  mounted() {
+    this.retrieveToken();
   }
 }
 </script>
