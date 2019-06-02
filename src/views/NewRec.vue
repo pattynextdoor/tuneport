@@ -57,6 +57,9 @@
       <div v-on:click="createRecommendation" class="choice-btn">
         <p class="choice">Submit</p>
       </div>
+      <div v-on:click="" class="choice-btn">
+        <p class="choice">Let Tuneport Curate</p>
+      </div>
     </div>
   </div>
 </template>
