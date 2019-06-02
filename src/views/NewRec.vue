@@ -39,30 +39,20 @@
     <div v-if="state == 'configuration'" class="configRec">
       <h2>Change the attributes up to your liking!</h2>
       <div class="slidecontainer">
-        <label for="key">Key</label>
-        <label for="mode">Mode</label>
-        <label for="timesig">Time Sig</label>
-        <label for="acousticness">Acousticness</label>
-        <label for="danceability">Danceability</label>
         <label for="energy">Energy</label>
-        <label for="instrumentalness">Instrumentalness</label>
-        <label for="liveliness">Liveliness</label>
+        <input type="range" orient="vertical" min="0" max="1" v-bind:value="energy" step="0.05" class="slider" id="myRange" name="danceability">
+
         <label for="loudness">Loudness</label>
-        <label for="speechiness">Speechiness</label>
+        <input type="range" orient="vertical" min="-60" max="0" v-bind:value="loudness" class="slider" id="myRange" name="energy">
+
+        <label for="danceability">Danceability</label>
+        <input type="range" orient="vertical" min="0" max="1" v-bind:value="danceability" step="0.05" class="slider" id="myRange" name="loudness">
+
         <label for="valence">Valence</label>
+        <input type="range" orient="vertical" min="0" max="1" v-bind:value="valence" step="0.05" class="slider" id="myRange" name="valence">
+
         <label for="tempo">Tempo</label>
-        <input type="range" orient="vertical" min="1" max="100" value="50" class="slider" id="key" oninput="keyUpdate(value)">
-        <input type="range" orient="vertical" min="1" max="100" value="50" class="slider" id="mode">
-        <input type="range" orient="vertical" min="1" max="100" value="50" class="slider" id="myRange" name="timesig">
-        <input type="range" orient="vertical" min="1" max="100" value="50" class="slider" id="myRange" name="acousticness">
-        <input type="range" orient="vertical" min="1" max="100" value="50" class="slider" id="myRange" name="danceability">
-        <input type="range" orient="vertical" min="1" max="100" value="50" class="slider" id="myRange" name="energy">
-        <input type="range" orient="vertical" min="1" max="100" value="50" class="slider" id="myRange" name="instrumentalness">
-        <input type="range" orient="vertical" min="1" max="100" value="50" class="slider" id="myRange" name="liveliness">
-        <input type="range" orient="vertical" min="1" max="100" value="50" class="slider" id="myRange" name="loudness">
-        <input type="range" orient="vertical" min="1" max="100" value="50" class="slider" id="myRange" name="speechiness">
-        <input type="range" orient="vertical" min="1" max="100" value="50" class="slider" id="myRange" name="valence">
-        <input type="range" orient="vertical" min="1" max="100" value="50" class="slider" id="myRange" name="tempo">
+        <input type="range" orient="vertical" min="1" max="250" v-bind:value="tempo" class="slider" id="myRange" name="tempo">
       </div>
     </div>
   </div>
@@ -88,7 +78,12 @@ export default {
       selectedPlaylist: "",
       songs:  [
         {title: 'song 1'},
-      ]
+      ],
+      energy: 0.5,
+      loudness: -30,
+      danceability: 0.5,
+      valence: 0.5,
+      tempo: 200
     };
   },
   methods: {
@@ -121,9 +116,8 @@ export default {
               }
             })
             .then(function(response) {
-              // vm.$data.playlists = response;
               var i;
-              for (i = 0; i < 5; i++) {
+              for (i = 0; i < response.body.items.length; i++) {
                 playlistName = response.body.items[i]["name"];
                 playlistId = response.body.items[i]["id"];
                 let currPlaylist = {
@@ -175,6 +169,7 @@ export default {
       })
     },
     getTrackFeatures: function(tracks) {
+      let vm = this;
       let token = this.$data.token;
       // Get 5 random tracks from 'tracks'
       let reqStr = "";
@@ -200,12 +195,47 @@ export default {
       .then(function(response) {
         let audioFeatures = response.body.audio_features;
         console.log(audioFeatures);
+        vm.processFeatures(audioFeatures); 
       })
+    },
+    processFeatures: function(features) {
+      // Features: Energy, Loudness, Danceability, Valence, Tempo
+
+      let energySum = 0;
+      let loudSum = 0;
+      let danceSum = 0;
+      let valenceSum = 0;
+      let tempoSum = 0;
+
+      for (let i = 0; i < features.length; i++) {
+        energySum += features[i].energy;
+        loudSum += features[i].loudness;
+        danceSum += features[i].danceability;
+        valenceSum += features[i].valence;
+        tempoSum += features[i].tempo;
+      }
+
+      let energyAvg = energySum / features.length;
+      let loudAvg = loudSum / features.length;
+      let danceAvg = danceSum / features.length;
+      let valenceAvg = valenceSum / features.length;
+      let tempoAvg = tempoSum / features.length;
+
+      console.log(energyAvg)
+      console.log(loudAvg)
+      console.log(danceAvg)
+      console.log(valenceAvg)
+      console.log(tempoAvg)
+
+      this.$data.energy = energyAvg;
+      this.$data.loudness = loudAvg;
+      this.$data.danceability = danceAvg;
+      this.$data.valence = valenceAvg;
+      this.$data.tempo = tempoAvg;
     }
   },
   mounted() {
     this.retrieveToken();
-    // this.getPlayList();
   }
 };
 </script>
@@ -321,7 +351,7 @@ select {
 label {
   color: #000000;
   font-size: 1em;
-  text-align: center;
+  text-align: right;
 }
 output {
   color: #000000;
