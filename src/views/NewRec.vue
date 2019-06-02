@@ -40,19 +40,22 @@
       <h2>Change the attributes up to your liking!</h2>
       <div class="slidecontainer">
         <label for="energy">Energy</label>
-        <input type="range" orient="vertical" min="0" max="1" v-bind:value="energy" step="0.05" class="slider" id="myRange" name="danceability">
+        <input type="range" orient="vertical" min="0" max="1" v-model="energy" step="0.05" class="slider" id="myRange" name="danceability">
 
         <label for="loudness">Loudness</label>
-        <input type="range" orient="vertical" min="-60" max="0" v-bind:value="loudness" class="slider" id="myRange" name="energy">
+        <input type="range" orient="vertical" min="-60" max="0" v-model="loudness" class="slider" id="myRange" name="energy">
 
         <label for="danceability">Danceability</label>
-        <input type="range" orient="vertical" min="0" max="1" v-bind:value="danceability" step="0.05" class="slider" id="myRange" name="loudness">
+        <input type="range" orient="vertical" min="0" max="1" v-model="danceability" step="0.05" class="slider" id="myRange" name="loudness">
 
         <label for="valence">Valence</label>
-        <input type="range" orient="vertical" min="0" max="1" v-bind:value="valence" step="0.05" class="slider" id="myRange" name="valence">
+        <input type="range" orient="vertical" min="0" max="1" v-model="valence" step="0.05" class="slider" id="myRange" name="valence">
 
         <label for="tempo">Tempo</label>
-        <input type="range" orient="vertical" min="1" max="250" v-bind:value="tempo" class="slider" id="myRange" name="tempo">
+        <input type="range" orient="vertical" min="1" max="250" v-model="tempo" class="slider" id="myRange" name="tempo">
+      </div>
+      <div v-on:click="createRecommendation" class="choice-btn">
+        <p class="choice">Submit</p>
       </div>
     </div>
   </div>
@@ -76,6 +79,7 @@ export default {
         {title: 'list 1'},
       ],
       selectedPlaylist: "",
+      selectedPlaylistId: "",
       songs:  [
         {title: 'song 1'},
       ],
@@ -150,6 +154,7 @@ export default {
       for (let i = 0; i < playlists.length; i++) {
         if (playlists[i].name == selectedPlaylist) {
           playlistId = playlists[i].id;
+          vm.$data.selectedPlaylistId = playlistId;
           break;          
         }
       }
@@ -200,7 +205,6 @@ export default {
     },
     processFeatures: function(features) {
       // Features: Energy, Loudness, Danceability, Valence, Tempo
-
       let energySum = 0;
       let loudSum = 0;
       let danceSum = 0;
@@ -220,18 +224,33 @@ export default {
       let danceAvg = danceSum / features.length;
       let valenceAvg = valenceSum / features.length;
       let tempoAvg = tempoSum / features.length;
-
-      console.log(energyAvg)
-      console.log(loudAvg)
-      console.log(danceAvg)
-      console.log(valenceAvg)
-      console.log(tempoAvg)
-
+      
       this.$data.energy = energyAvg;
       this.$data.loudness = loudAvg;
       this.$data.danceability = danceAvg;
       this.$data.valence = valenceAvg;
       this.$data.tempo = tempoAvg;
+    },
+    createRecommendation: function() {
+      let vm = this;
+      // Save attributes to Firebase
+      let userId = firebase.auth().currentUser.uid;
+      let dbRef = firebase.database().ref().child(userId);
+
+      dbRef.set(
+        {
+          recommendations: [
+            {
+              playlistId: vm.$data.selectedPlaylistId,
+              energy: vm.$data.energy,
+              loudness: vm.$data.loudness,
+              danceability: vm.$data.danceability,
+              valence: vm.$data.valence,
+              tempo: vm.$data.tempo
+            }
+          ]
+        }
+      )
     }
   },
   mounted() {
