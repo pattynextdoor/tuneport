@@ -4,7 +4,7 @@
     <div class="container">
       <div class="left">
         <div class="album">
-          <img v-bind:src="tracklist[currTrackPos].albumArt.url" class="albumArt">
+            <img v-bind:src="tracklist[currTrackPos].albumArt.url" class="albumArt">
         </div>
         <p class="trackInfo">
           {{tracklist[currTrackPos].artist.name}} - {{tracklist[currTrackPos].title}}
@@ -15,7 +15,7 @@
             <button class="play"></button>
           </a>
           <button class="next" v-on:click="fastForward"/>
-          <button class="heart"v-on:click="likeTrack"/>
+          <button class="heart" v-on:click="likeTrack"/>
         </div>
       </div>
       <div class="mid">
@@ -25,11 +25,13 @@
           </div>
         </div>
         <div class="mid-mid">
-          <ul id="liked-songs">
-            <li v-for="track in tracklist" v-bind:key="track.permalink" class="tracklist">
+        <ul id="liked-songs">
+          <transition-group name="list" tag="li">
+          <li v-for="track in tracklist" v-bind:key="track.permalink" class="tracklist">
               {{track.artist.name}} - {{track.title}}
-            </li>
-          </ul>
+          </li>
+          </transition-group>
+        </ul>
         </div>
         <div class="mid-bot">
         </div>
@@ -235,6 +237,14 @@ export default {
 </script>
 
 <style scoped>
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+
 .listen {
   height: 100%;
 }

@@ -54,11 +54,17 @@
         <label for="tempo">Tempo</label>
         <input type="range" orient="vertical" min="1" max="250" v-model="tempo" class="slider" id="myRange" name="tempo">
       </div>
-      <div v-on:click="createRecommendation" class="choice-btn">
-        <p class="choice">Submit</p>
-      </div>
-      <div v-on:click="" class="choice-btn">
-        <p class="choice">Let Tuneport Curate</p>
+      <div class="grid end-btns">
+        <div class="left">
+          <div v-on:click="createRecommendation" class="choice-btn">
+            <p class="choice">Submit</p>
+          </div>
+        </div>
+        <div class="right">
+          <div v-on:click="" class="choice-btn">
+            <p class="choice">Let Tuneport Curate</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -327,6 +333,11 @@ h2 {
   color: #000000;
   background-color: transparent;
 } */
+
+.end-btns {
+  margin-top: 5%;
+}
+
 select {
   display: block;
   margin: 0 auto;
