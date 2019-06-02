@@ -15,7 +15,7 @@
             <button class="play"></button>
           </a>
           <button class="next" v-on:click="fastForward"/>
-          <button class="heart"/>
+          <button class="heart"v-on:click="likeTrack"/>
         </div>
       </div>
       <div class="mid">
@@ -37,13 +37,14 @@
       <div class="right">
         <div class="mid-top">
           <div class="playlist">
-            <p>[Playlist Name]</p>
+            <p>Liked Songs</p>
           </div>
         </div>
         <div class="mid-mid">
           <ul id="liked-songs">
-            <li v-for="liked in likes" v-bind:key="liked">
-              {{song.title}}
+            <li v-for="track in liked" v-bind:key="track.permalink" class="tracklist">
+              {{track.artist.name}} - {{track.title}}
+            </li>
             </li>
           </ul>
         </div>
@@ -159,6 +160,9 @@ export default {
       if (this.$data.currTrackPos < this.$data.tracklist.length - 1) {
         this.$data.currTrackPos += 1;
       }
+    },
+    likeTrack: function() {
+      this.$data.liked.push(this.$data.tracklist[this.$data.currTrackPos]);      
     }
   },
   mounted() {
