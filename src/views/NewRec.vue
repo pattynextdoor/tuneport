@@ -154,7 +154,7 @@ export default {
       let tracks= [];
 
       for (let i = 0; i < playlists.length; i++) {
-        if (playlists[i].name = selectedPlaylist) {
+        if (playlists[i].name == selectedPlaylist) {
           playlistId = playlists[i].id;
           break;          
         }
@@ -171,9 +171,36 @@ export default {
       })
       .then(function(response) {
         tracks = response.body.items
-        console.log(tracks);
+        vm.getTrackFeatures(tracks);
       })
+    },
+    getTrackFeatures: function(tracks) {
+      let token = this.$data.token;
+      // Get 5 random tracks from 'tracks'
+      let reqStr = "";
 
+      for (let i = 0; i < 5; i++) {
+        let randomTrack = tracks[Math.floor(Math.random() * tracks.length)];
+        let randomTrackId = randomTrack.track.id;
+        
+        reqStr += randomTrackId;
+
+        if (i != 4) {
+          reqStr += ',';
+        }
+      }
+
+      let reqUrl = "https://api.spotify.com/v1/audio-features/?ids=" + reqStr;
+
+      this.$http.get(reqUrl, {
+        headers: {
+          Authorization: "Bearer " + token
+        }
+      })
+      .then(function(response) {
+        let audioFeatures = response.body.audio_features;
+        console.log(audioFeatures);
+      })
     }
   },
   mounted() {
