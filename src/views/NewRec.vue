@@ -64,6 +64,7 @@
 <script>
 import TuneNav from '@/components/tunenav.vue'
 import firebase from 'firebase'
+import router from '@/router'
 
 export default {
   name: 'newrec',
@@ -80,6 +81,7 @@ export default {
       ],
       selectedPlaylist: "",
       selectedPlaylistId: "",
+      songSeedStr: "",
       songs:  [
         {title: 'song 1'},
       ],
@@ -190,6 +192,8 @@ export default {
         }
       }
 
+      this.$data.songSeedStr = reqStr;
+
       let reqUrl = "https://api.spotify.com/v1/audio-features/?ids=" + reqStr;
 
       this.$http.get(reqUrl, {
@@ -237,10 +241,11 @@ export default {
       let userId = firebase.auth().currentUser.uid;
       let dbRef = firebase.database().ref().child(userId);
 
-      dbRef.set(
+      dbRef.update(
         {
           recommendations: [
             {
+              trackSeedStr: vm.$data.songSeedStr,
               playlistId: vm.$data.selectedPlaylistId,
               energy: vm.$data.energy,
               loudness: vm.$data.loudness,
@@ -251,6 +256,9 @@ export default {
           ]
         }
       )
+      .then(function() {
+        router.push('listen')
+      })
     }
   },
   mounted() {
