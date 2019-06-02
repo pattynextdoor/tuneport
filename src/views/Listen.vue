@@ -4,12 +4,17 @@
     <div class="container">
       <div class="left">
         <div class="album">
-          [Put Album Image Here]
+          <img v-bind:src="tracklist[currTrackPos].albumArt.url" class="albumArt">
         </div>
+        <p class="trackInfo">
+          {{tracklist[currTrackPos].artist.name}} - {{tracklist[currTrackPos].title}}
+        </p>
         <div class="playback">
-          <button class="prev"/>
-          <button class="play"/>
-          <button class="next"/>
+          <button class="prev" v-on:click="fastBackward"/>
+          <a v-bind:href="tracklist[currTrackPos].permalink">
+            <button class="play"></button>
+          </a>
+          <button class="next" v-on:click="fastForward"/>
           <button class="heart"/>
         </div>
       </div>
@@ -66,7 +71,8 @@ export default {
       userRecObj: {},
       recommendedTracksObj: {},
       tracklist: [],
-      liked: []
+      liked: [],
+      currTrackPos: 0,
     }
   },
   methods: {
@@ -143,6 +149,16 @@ export default {
       }
 
       this.$data.tracklist = tracklist;
+    },
+    fastBackward: function() {
+      if (this.$data.currTrackPos > 0) {
+        this.$data.currTrackPos -= 1;
+      }
+    },
+    fastForward: function() {
+      if (this.$data.currTrackPos < this.$data.tracklist.length - 1) {
+        this.$data.currTrackPos += 1;
+      }
     }
   },
   mounted() {
@@ -160,6 +176,7 @@ export default {
   width: 400px;
   display: block;
   margin: 150px auto 150px;
+  margin-bottom: 10%;
   background-color: #ffffff;
   text-align: center;
   color: #000000;
@@ -204,6 +221,7 @@ export default {
 }
 ul {
   margin-top: 0;
+  padding: 0;
   list-style: none;
   color: #272727;
   line-height: 40px;
@@ -248,6 +266,21 @@ p {
 
 .tracklist:nth-child(even){
   background-color: #d3d3d3;
+}
+
+.tracklist {
+  text-align: center;
+}
+
+.albumArt {
+  width: 100%;
+}
+
+.trackInfo {
+  text-align: center;
+  margin-bottom: 10%;
+  font-size: 1.5em;
+  color: black;
 }
 
 .heart {
