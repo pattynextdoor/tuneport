@@ -20,18 +20,14 @@
     <div v-if="state == 'choosing song' || state == 'choosing playlist'">
       <div v-if="state == 'choosing song'" class="chooseSong">
         <h2>Search for a song to analyze the qualities of</h2>
-        <select id = "songList">
-          <option v-for="song in songs" v-bind:key="song">
-            {{song.title}}
-          </option>
+        <select id="songList">
+          <option v-for="song in songs" v-bind:key="song">{{song.title}}</option>
         </select>
       </div>
       <div v-if="state == 'choosing playlist'" class="choosePlaylist">
         <h2>Choose a playlist to analyze the qualities of</h2>
-        <select id = "playlist" v-model="selectedPlaylist">
-          <option v-for="playlist in playlists" v-bind:key="playlist.id">
-            {{playlist.name}}
-          </option>
+        <select id="playlist" v-model="selectedPlaylist">
+          <option v-for="playlist in playlists" v-bind:key="playlist.id">{{playlist.name}}</option>
         </select>
       </div>
       <div v-on:click="getTracksFromPlaylist" class="next">Next</div>
@@ -40,19 +36,67 @@
       <h2>Change the attributes up to your liking!</h2>
       <div class="slidecontainer">
         <label for="energy">Energy</label>
-        <input type="range" orient="vertical" min="0" max="1" v-model="energy" step="0.05" class="slider" id="myRange" name="danceability">
+        <input
+          type="range"
+          orient="vertical"
+          min="0"
+          max="1"
+          v-model="energy"
+          step="0.05"
+          class="slider"
+          id="myRange"
+          name="danceability"
+        >
 
         <label for="loudness">Loudness</label>
-        <input type="range" orient="vertical" min="-60" max="0" v-model="loudness" class="slider" id="myRange" name="energy">
+        <input
+          type="range"
+          orient="vertical"
+          min="-60"
+          max="0"
+          v-model="loudness"
+          class="slider"
+          id="myRange"
+          name="energy"
+        >
 
         <label for="danceability">Danceability</label>
-        <input type="range" orient="vertical" min="0" max="1" v-model="danceability" step="0.05" class="slider" id="myRange" name="loudness">
+        <input
+          type="range"
+          orient="vertical"
+          min="0"
+          max="1"
+          v-model="danceability"
+          step="0.05"
+          class="slider"
+          id="myRange"
+          name="loudness"
+        >
 
         <label for="valence">Valence</label>
-        <input type="range" orient="vertical" min="0" max="1" v-model="valence" step="0.05" class="slider" id="myRange" name="valence">
+        <input
+          type="range"
+          orient="vertical"
+          min="0"
+          max="1"
+          v-model="valence"
+          step="0.05"
+          class="slider"
+          id="myRange"
+          name="valence"
+        >
 
         <label for="tempo">Tempo</label>
-        <input type="range" orient="vertical" min="1" max="250" v-model="tempo" class="slider" id="myRange" name="tempo">
+        <input
+          type="range"
+          orient="vertical"
+          min="1"
+          max="250"
+          v-model="tempo"
+          class="slider"
+          id="myRange"
+          name="tempo"
+        >
       </div>
       <div class="grid end-btns">
         <div class="left">
@@ -61,7 +105,7 @@
           </div>
         </div>
         <div class="right">
-          <div v-on:click="" class="choice-btn">
+          <div v-on:click="predictRecommendation" class="choice-btn">
             <p class="choice">Let Tuneport Curate</p>
           </div>
         </div>
@@ -71,29 +115,30 @@
 </template>
 
 <script>
-import TuneNav from '@/components/tunenav.vue'
-import firebase from 'firebase'
-import router from '@/router'
+import TuneNav from "@/components/tunenav.vue";
+import firebase from "firebase";
+import router from "@/router";
+import * as tf from "@tensorflow/tfjs";
 
 export default {
-  name: 'newrec',
+  name: "newrec",
   components: {
     TuneNav
   },
   data() {
     return {
+      xValues: [1,2,3,4],
+      yValues: [1,3,5,7],
+      predictedRecommendations: "",
+      valueToPredict: 5,
       state: "start",
       query: "",
       token: "",
-      playlists: [
-        {title: 'list 1'},
-      ],
+      playlists: [{ title: "list 1" }],
       selectedPlaylist: "",
       selectedPlaylistId: "",
       songSeedStr: "",
-      songs:  [
-        {title: 'song 1'},
-      ],
+      songs: [{ title: "song 1" }],
       energy: 0.5,
       loudness: -30,
       danceability: 0.5,
@@ -138,7 +183,7 @@ export default {
                 let currPlaylist = {
                   name: playlistName,
                   id: playlistId
-                }
+                };
                 playlistList.push(currPlaylist);
               }
               console.log(playlistList);
@@ -158,31 +203,32 @@ export default {
       let playlists = this.$data.playlists;
       let selectedPlaylist = this.$data.selectedPlaylist;
       let token = this.$data.token;
-      let playlistId = ""
+      let playlistId = "";
       let vm = this;
-      let tracks= [];
+      let tracks = [];
 
       for (let i = 0; i < playlists.length; i++) {
         if (playlists[i].name == selectedPlaylist) {
           playlistId = playlists[i].id;
           vm.$data.selectedPlaylistId = playlistId;
-          break;          
+          break;
         }
       }
 
       // Make a request to the endpoint to retrieve tracks
-      let reqUrl = "https://api.spotify.com/v1/playlists/"
-                    + playlistId + "/tracks";
+      let reqUrl =
+        "https://api.spotify.com/v1/playlists/" + playlistId + "/tracks";
 
-      this.$http.get(reqUrl, {
-        headers: {
-          Authorization: "Bearer " + token
-        }
-      })
-      .then(function(response) {
-        tracks = response.body.items
-        vm.getTrackFeatures(tracks);
-      })
+      this.$http
+        .get(reqUrl, {
+          headers: {
+            Authorization: "Bearer " + token
+          }
+        })
+        .then(function(response) {
+          tracks = response.body.items;
+          vm.getTrackFeatures(tracks);
+        });
     },
     getTrackFeatures: function(tracks) {
       let vm = this;
@@ -193,11 +239,11 @@ export default {
       for (let i = 0; i < 5; i++) {
         let randomTrack = tracks[Math.floor(Math.random() * tracks.length)];
         let randomTrackId = randomTrack.track.id;
-        
+
         reqStr += randomTrackId;
 
         if (i != 4) {
-          reqStr += ',';
+          reqStr += ",";
         }
       }
 
@@ -205,16 +251,17 @@ export default {
 
       let reqUrl = "https://api.spotify.com/v1/audio-features/?ids=" + reqStr;
 
-      this.$http.get(reqUrl, {
-        headers: {
-          Authorization: "Bearer " + token
-        }
-      })
-      .then(function(response) {
-        let audioFeatures = response.body.audio_features;
-        console.log(audioFeatures);
-        vm.processFeatures(audioFeatures); 
-      })
+      this.$http
+        .get(reqUrl, {
+          headers: {
+            Authorization: "Bearer " + token
+          }
+        })
+        .then(function(response) {
+          let audioFeatures = response.body.audio_features;
+          console.log(audioFeatures);
+          vm.processFeatures(audioFeatures);
+        });
     },
     processFeatures: function(features) {
       // Features: Energy, Loudness, Danceability, Valence, Tempo
@@ -222,7 +269,7 @@ export default {
       let loudSum = 0;
       let danceSum = 0;
       let valenceSum = 0;
-      let tempoSum = 0;
+      let tempoSum = 0; 
 
       for (let i = 0; i < features.length; i++) {
         energySum += features[i].energy;
@@ -237,7 +284,7 @@ export default {
       let danceAvg = danceSum / features.length;
       let valenceAvg = valenceSum / features.length;
       let tempoAvg = tempoSum / features.length;
-      
+
       this.$data.energy = energyAvg;
       this.$data.loudness = loudAvg;
       this.$data.danceability = danceAvg;
@@ -248,10 +295,13 @@ export default {
       let vm = this;
       // Save attributes to Firebase
       let userId = firebase.auth().currentUser.uid;
-      let dbRef = firebase.database().ref().child(userId);
+      let dbRef = firebase
+        .database()
+        .ref()
+        .child(userId);
 
-      dbRef.update(
-        {
+      dbRef
+        .update({
           recommendations: [
             {
               trackSeedStr: vm.$data.songSeedStr,
@@ -263,17 +313,35 @@ export default {
               tempo: vm.$data.tempo
             }
           ]
-        }
-      )
-      .then(function() {
-        router.push('listen')
-      })
+        })
+        .then(function() {
+          router.push("listen");
+        });
+      
+    },
+    predictRecommendation: function(){
+      let vm = this;
+      const model = this.model = tf.sequential();
+      model.add(tf.layers.dense({units: 1, inputShape: [1]}));
+      model.compile({loss: 'meanSquaredError', optimizer: 'sgd'});
+      //Retrieve Average from the 5 features (Average)
+      //Retrieve User Input for Y
+      const xs = tf.tensor2d(this.xValues, [this.xValues.length, 1]);
+      const ys = tf.tensor2d(this.yValues, [this.yValues.length, 1]);
+        model.fit(xs,ys).then(() => {
+        vm.predict();
+        });
+    },
+    predict: function() {
+    let predicted;
+    predicted = this.model.predict(tf.tensor2d([this.valueToPredict],[1,1])).print();
+    console.log(this.valueToPredict);
     }
   },
   mounted() {
     this.retrieveToken();
   }
-};
+}
 </script>
 
 <style scoped>
@@ -299,7 +367,7 @@ h2 {
   font-size: 3em;
 }
 
-.configRec > h2{
+.configRec > h2 {
   margin-bottom: 5%;
 }
 
@@ -355,7 +423,7 @@ select {
   margin: 0 auto;
   height: 35px;
   width: 100px;
-  background-color:#d8026e;
+  background-color: #d8026e;
   border: 0;
   color: #ffffff;
   box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
@@ -384,10 +452,9 @@ select {
 .slider::-moz-range-thumb {
   width: 25px;
   height: 25px;
-  border-radius: 50%; 
+  border-radius: 50%;
   background: #d8026e;
   cursor: pointer;
-
 }
 label {
   color: #000000;
